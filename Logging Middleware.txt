@@ -1,0 +1,21 @@
+const LOG_KEY = 'app_logs';
+
+export function customLogger(level, message) {
+  const logEntry = {
+    timestamp: new Date().toISOString(),
+    level: level.toUpperCase(),
+    message,
+  };
+  const logs = JSON.parse(localStorage.getItem(LOG_KEY)) || [];
+  logs.push(logEntry);
+  localStorage.setItem(LOG_KEY, JSON.stringify(logs));
+}
+
+export function getLogs() {
+  return JSON.parse(localStorage.getItem(LOG_KEY)) || [];
+}
+
+export function clearLogs() {
+  localStorage.removeItem(LOG_KEY);
+}
+
